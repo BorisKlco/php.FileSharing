@@ -20,9 +20,11 @@ class Home
         $list = [];
         foreach ($fileList as $record) {
             $expired = $record['expire_date'] ? (new \DateTime($record['expire_date']) < new \DateTime()) : false;
+            $size = number_format(filesize(FILES . $record['temp']) / (1024 * 1024), 2) . 'mb';
 
             $list[] = [
                 'name' => $record['name'],
+                'size' => $size,
                 'link' => $expired ? null : $record['token']
             ];
         }
